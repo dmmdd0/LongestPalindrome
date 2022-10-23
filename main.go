@@ -3,20 +3,17 @@ package main
 import "fmt"
 
 func main() {
-	s := "abcccccdd"
+	s := "ccc"
 	fmt.Println(longestPalindrome(s))
 }
 
 func longestPalindrome(s string) int {
 	uneven := 0
 	lenth := len(s)
+	paliandrome := 0
 
-	if lenth < 2 {
+	if lenth <= 1 {
 		return lenth
-	}
-
-	if lenth%2 != 0 {
-		uneven = 1
 	}
 
 	var table [60]int
@@ -24,5 +21,14 @@ func longestPalindrome(s string) int {
 	for _, v := range s {
 		table[v-65] += 1
 	}
-	return 3 + uneven
+
+	for i := range table {
+		paliandrome += table[i] - table[i]%2
+	}
+
+	if paliandrome < lenth {
+		uneven = 1
+	}
+
+	return paliandrome + uneven
 }
